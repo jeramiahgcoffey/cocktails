@@ -15,3 +15,7 @@ hr {
 .card__chips {
     margin: 10px 0 0 0;
 }
+
+.form-submit {
+    margin: 30px 0;
+}
