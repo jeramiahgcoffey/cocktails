@@ -1,4 +1,5 @@
 import express from 'express'
+import 'express-async-errors'
 import connectDB from './db/connect.js'
 import authRouter from './routers/authRouter.js'
 import drinksRouter from './routers/drinksRouter.js'
