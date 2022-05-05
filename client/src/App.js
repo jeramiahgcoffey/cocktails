@@ -1,11 +1,14 @@
 import './App.css'
-import { Typography, Container } from '@mui/material'
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import Explore from './pages/Explore'
 
 function App() {
     return (
-        <Container>
-            <Typography variant='h1'>Hello, from the frontend!</Typography>
-        </Container>
+        <BrowserRouter>
+            <Routes>
+                <Route path='/' element={<Explore />} />
+            </Routes>
+        </BrowserRouter>
     )
 }
 
