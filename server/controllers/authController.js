@@ -2,7 +2,7 @@ import User from '../models/User.js'
 import { StatusCodes } from 'http-status-codes'
 import { BadRequestError } from '../errors/index.js'
 
-// Using express-async-error
+// Using express-async-error catching
 const register = async (req, res, next) => {
     const { firstName, lastName, email, password } = req.body
 
