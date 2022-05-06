@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { Grid, Paper, TextField, Typography, Button } from '@mui/material'
+import axios from 'axios'
 
 const defaultValues = {
     firstName: '',
@@ -10,6 +11,15 @@ const defaultValues = {
 
 const Register = () => {
     const [values, setValues] = useState(defaultValues)
+
+    const register = async () => {
+        try {
+            const response = await axios.post('/api/v1/auth/register', values)
+            console.log(response.data)
+        } catch (error) {
+            console.log(error)
+        }
+    }
 
     const handleInputChange = (e) => {
         const { name, value } = e.target
@@ -24,6 +34,8 @@ const Register = () => {
     const handleSubmit = (e) => {
         e.preventDefault()
         console.log(values)
+        register()
+        setValues(defaultValues)
     }
 
     return (
@@ -37,7 +49,7 @@ const Register = () => {
         >
             <Grid item xs={3}>
                 <Paper
-                    elevation={4}
+                    elevation={16}
                     sx={{
                         width: 320,
                         height: 500,

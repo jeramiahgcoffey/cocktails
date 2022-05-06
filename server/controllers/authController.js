@@ -16,10 +16,11 @@ const register = async (req, res, next) => {
         user: { firstName, lastName, email },
         token,
     })
+    // res.status(StatusCodes.OK).json({ msg: 'Register User' })
 }
 
 const login = async (req, res) => {
-    res.send('login user')
+    res.json({ msg: 'login' })
 }
 const updateUser = async (req, res) => {
     res.send('update user')
