@@ -1,6 +1,7 @@
-import React, { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Grid, Paper, TextField, Typography, Button } from '@mui/material'
-import axios from 'axios'
+import { useAppContext } from '../context/appContext'
+import { useNavigate } from 'react-router-dom'
 
 const defaultValues = {
     firstName: '',
@@ -10,16 +11,15 @@ const defaultValues = {
 }
 
 const Register = () => {
+    const navigate = useNavigate()
+    const { registerUser, user } = useAppContext()
     const [values, setValues] = useState(defaultValues)
 
-    const register = async () => {
-        try {
-            const response = await axios.post('/api/v1/auth/register', values)
-            console.log(response.data)
-        } catch (error) {
-            console.log(error)
+    useEffect(() => {
+        if (user) {
+            navigate('/')
         }
-    }
+    }, [user])
 
     const handleInputChange = (e) => {
         const { name, value } = e.target
@@ -33,9 +33,11 @@ const Register = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault()
-        console.log(values)
-        register()
-        setValues(defaultValues)
+        // console.log(values)
+        const { firstName, lastName, email, password } = values
+        const currentUser = { firstName, lastName, email, password }
+        registerUser(currentUser)
+        // setValues(defaultValues)
     }
 
     return (
