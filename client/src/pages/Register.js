@@ -8,6 +8,7 @@ const defaultValues = {
     lastName: '',
     email: '',
     password: '',
+    isMember: true,
 }
 
 const Register = () => {
@@ -19,7 +20,16 @@ const Register = () => {
         if (user) {
             navigate('/')
         }
-    }, [user])
+    }, [user, navigate])
+
+    const toggleIsMember = () => {
+        setValues((prevState) => {
+            return {
+                ...prevState,
+                isMember: !prevState.isMember,
+            }
+        })
+    }
 
     const handleInputChange = (e) => {
         const { name, value } = e.target
@@ -36,8 +46,11 @@ const Register = () => {
         // console.log(values)
         const { firstName, lastName, email, password } = values
         const currentUser = { firstName, lastName, email, password }
-        registerUser(currentUser)
-        // setValues(defaultValues)
+        if (values.isMember) {
+            setValues(defaultValues)
+        } else {
+            registerUser(currentUser)
+        }
     }
 
     return (
@@ -54,39 +67,43 @@ const Register = () => {
                     elevation={16}
                     sx={{
                         width: 320,
-                        height: 500,
+                        height: values.isMember ? 360 : 500,
                         margin: '20px',
                         padding: '40px 20px',
                     }}
                 >
                     <Typography variant='h5' align='center' paragraph>
-                        Register
+                        {values.isMember ? 'Login' : 'Register'}
                     </Typography>
                     <form onSubmit={handleSubmit}>
-                        <TextField
-                            fullWidth
-                            required
-                            margin='normal'
-                            variant='standard'
-                            id='fname'
-                            name='firstName'
-                            label='First Name'
-                            type='text'
-                            value={values.firstName}
-                            onChange={handleInputChange}
-                        />
-                        <TextField
-                            fullWidth
-                            required
-                            margin='normal'
-                            variant='standard'
-                            id='lname'
-                            name='lastName'
-                            label='Last Name'
-                            type='text'
-                            value={values.lastName}
-                            onChange={handleInputChange}
-                        />
+                        {!values.isMember && (
+                            <>
+                                <TextField
+                                    fullWidth
+                                    required
+                                    margin='normal'
+                                    variant='standard'
+                                    id='fname'
+                                    name='firstName'
+                                    label='First Name'
+                                    type='text'
+                                    value={values.firstName}
+                                    onChange={handleInputChange}
+                                />
+                                <TextField
+                                    fullWidth
+                                    required
+                                    margin='normal'
+                                    variant='standard'
+                                    id='lname'
+                                    name='lastName'
+                                    label='Last Name'
+                                    type='text'
+                                    value={values.lastName}
+                                    onChange={handleInputChange}
+                                />
+                            </>
+                        )}
                         <TextField
                             fullWidth
                             required
@@ -123,8 +140,12 @@ const Register = () => {
                                 Cancel
                             </Button>
                             <Typography sx={{ paddingTop: 3 }} variant='body2'>
-                                Already a user?{' '}
-                                <Button size='small'>Sign in</Button>
+                                {values.isMember
+                                    ? 'New here? '
+                                    : 'Already a member? '}
+                                <Button size='small' onClick={toggleIsMember}>
+                                    {values.isMember ? 'Register' : 'Sign In'}
+                                </Button>
                             </Typography>
                         </div>
                     </form>

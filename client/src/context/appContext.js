@@ -7,10 +7,13 @@ import {
     REGISTER_USER_ERROR,
 } from './actions'
 
+const token = localStorage.getItem('token')
+const user = localStorage.getItem('user')
+
 const initalState = {
     isLoading: false,
-    user: null,
-    token: null,
+    user: user ? JSON.parse(user) : null,
+    token: token,
 }
 
 const AppContext = createContext()
@@ -22,6 +25,16 @@ const AppProvider = ({ children }) => {
     //     baseURL: '/api/v1',
     // })
 
+    const addUserToLocalStorage = ({ user, token }) => {
+        localStorage.setItem('user', JSON.stringify(user))
+        localStorage.setItem('token', token)
+    }
+
+    const removeUserFromLocalStorage = () => {
+        localStorage.removeItem('user')
+        localStorage.removeItem('token')
+    }
+
     const registerUser = async (currentUser) => {
         dispatch({ type: REGISTER_USER_BEGIN })
         try {
@@ -32,6 +45,7 @@ const AppProvider = ({ children }) => {
             console.log(response)
             const { user, token } = response.data
             dispatch({ type: REGISTER_USER_SUCCESS, payload: { user, token } })
+            addUserToLocalStorage({ user, token })
         } catch (error) {
             console.log(error.response.data.msg)
             dispatch({
