@@ -6,7 +6,10 @@ import {
     LOGIN_USER_BEGIN,
     LOGIN_USER_SUCCESS,
     LOGIN_USER_ERROR,
+    LOGOUT_USER,
 } from './actions'
+
+import { initalState } from './appContext'
 
 const reducer = (state, action) => {
     switch (action.type) {
@@ -62,6 +65,12 @@ const reducer = (state, action) => {
                 alertText: action.payload.msg,
                 alertType: 'error',
                 showAlert: true,
+            }
+        case LOGOUT_USER:
+            return {
+                ...initalState,
+                user: null,
+                token: null,
             }
         default:
             throw new Error(`no such action: ${action.type}`)

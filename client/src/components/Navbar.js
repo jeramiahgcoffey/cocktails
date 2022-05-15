@@ -1,4 +1,6 @@
-import * as React from 'react'
+import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
+import { useAppContext } from '../context/appContext'
 import AppBar from '@mui/material/AppBar'
 import Box from '@mui/material/Box'
 import Toolbar from '@mui/material/Toolbar'
@@ -14,11 +16,15 @@ import MenuItem from '@mui/material/MenuItem'
 import LocalBarIcon from '@mui/icons-material/LocalBar'
 
 const Navbar = () => {
-    const pages = ['Products', 'Pricing', 'Blog']
+    const { logoutUser } = useAppContext()
+
+    const pages = []
     const settings = ['Profile', 'Account', 'Dashboard', 'Logout']
 
-    const [anchorElNav, setAnchorElNav] = React.useState(null)
-    const [anchorElUser, setAnchorElUser] = React.useState(null)
+    const [anchorElNav, setAnchorElNav] = useState(null)
+    const [anchorElUser, setAnchorElUser] = useState(null)
+
+    const navigate = useNavigate()
 
     const handleOpenNavMenu = (event) => {
         setAnchorElNav(event.currentTarget)
@@ -31,7 +37,12 @@ const Navbar = () => {
         setAnchorElNav(null)
     }
 
-    const handleCloseUserMenu = () => {
+    const handleCloseUserMenu = (e) => {
+        const id = e.target.id
+        if (id === 'Logout') {
+            logoutUser()
+            navigate('/register')
+        }
         setAnchorElUser(null)
     }
 
@@ -155,10 +166,7 @@ const Navbar = () => {
                                 onClick={handleOpenUserMenu}
                                 sx={{ p: 0 }}
                             >
-                                <Avatar
-                                    alt='Remy Sharp'
-                                    src='/static/images/avatar/2.jpg'
-                                />
+                                <Avatar alt='Remy Sharp' src='' />
                             </IconButton>
                         </Tooltip>
                         <Menu
@@ -180,9 +188,13 @@ const Navbar = () => {
                             {settings.map((setting) => (
                                 <MenuItem
                                     key={setting}
+                                    id={setting}
                                     onClick={handleCloseUserMenu}
                                 >
-                                    <Typography textAlign='center'>
+                                    <Typography
+                                        textAlign='center'
+                                        sx={{ pointerEvents: 'none' }}
+                                    >
                                         {setting}
                                     </Typography>
                                 </MenuItem>
