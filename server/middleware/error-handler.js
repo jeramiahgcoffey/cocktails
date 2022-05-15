@@ -16,7 +16,7 @@ const errorHandlerMiddleware = (err, req, res, next) => {
             .join(', ')
     } else if (err.code && err.code === 11000) {
         defaultError.statusCode = StatusCodes.BAD_REQUEST
-        defaultError.msg = `${Object.keys(err.keyValue)} field has to be unique`
+        defaultError.msg = `${Object.keys(err.keyValue)} is already in use`
     }
 
     res.status(defaultError.statusCode).json({ msg: defaultError.msg })

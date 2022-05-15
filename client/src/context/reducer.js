@@ -1,4 +1,5 @@
 import {
+    CLEAR_ALERT,
     REGISTER_USER_BEGIN,
     REGISTER_USER_ERROR,
     REGISTER_USER_SUCCESS,
@@ -6,6 +7,13 @@ import {
 
 const reducer = (state, action) => {
     switch (action.type) {
+        case CLEAR_ALERT:
+            return {
+                ...state,
+                showAlert: false,
+                alertText: '',
+                alertType: '',
+            }
         case REGISTER_USER_BEGIN:
             return {
                 ...state,
@@ -17,11 +25,17 @@ const reducer = (state, action) => {
                 isLoading: false,
                 token: action.payload.token,
                 user: action.payload.user,
+                showAlert: true,
+                alertType: 'success',
+                alertText: 'Registration successful, redirecting...',
             }
         case REGISTER_USER_ERROR:
             return {
                 ...state,
                 isLoading: false,
+                alertText: action.payload.msg,
+                alertType: 'error',
+                showAlert: true,
             }
         default:
             throw new Error(`no such action: ${action.type}`)
