@@ -8,7 +8,7 @@ const CardContainer = () => {
     return (
         <div>
             <Container>
-                <Grid container spacing={3}>
+                <Grid container spacing={3} align='center'>
                     {arr.map((card, index) => {
                         return <CocktailCard key={index} />
                     })}

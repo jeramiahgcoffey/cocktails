@@ -7,7 +7,7 @@ const Explore = () => {
     return (
         <>
             <Navbar />
-            <Search />
+            {/* <Search /> */}
             <CardContainer />
         </>
     )

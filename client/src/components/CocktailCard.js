@@ -12,8 +12,8 @@ import React from 'react'
 
 const CocktailCard = () => {
     return (
-        <Grid item xs={6} sm={4} md={3}>
-            <Card>
+        <Grid item xs={12} sm={4} md={3}>
+            <Card sx={{ maxWidth: 325 }} align='left'>
                 <CardMedia
                     component='img'
                     image='https://www.seriouseats.com/thmb/uEgkydkRh3KM3d8erZ1lKrFO9tY=/880x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/__opt__aboutcom__coeus__resources__content_migration__serious_eats__seriouseats.com__recipes__images__2015__04__20150323-cocktails-vicky-wasik-margarita-c84b154e757d43688de15dc8f8ca0de9.jpg'
