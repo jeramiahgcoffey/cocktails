@@ -3,6 +3,9 @@ import {
     REGISTER_USER_BEGIN,
     REGISTER_USER_ERROR,
     REGISTER_USER_SUCCESS,
+    LOGIN_USER_BEGIN,
+    LOGIN_USER_SUCCESS,
+    LOGIN_USER_ERROR,
 } from './actions'
 
 const reducer = (state, action) => {
@@ -30,6 +33,29 @@ const reducer = (state, action) => {
                 alertText: 'Registration successful, redirecting...',
             }
         case REGISTER_USER_ERROR:
+            return {
+                ...state,
+                isLoading: false,
+                alertText: action.payload.msg,
+                alertType: 'error',
+                showAlert: true,
+            }
+        case LOGIN_USER_BEGIN:
+            return {
+                ...state,
+                isLoading: true,
+            }
+        case LOGIN_USER_SUCCESS:
+            return {
+                ...state,
+                isLoading: false,
+                token: action.payload.token,
+                user: action.payload.user,
+                showAlert: true,
+                alertType: 'success',
+                alertText: 'Login successful, redirecting...',
+            }
+        case LOGIN_USER_ERROR:
             return {
                 ...state,
                 isLoading: false,

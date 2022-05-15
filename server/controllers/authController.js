@@ -1,6 +1,6 @@
 import User from '../models/User.js'
 import { StatusCodes } from 'http-status-codes'
-import { BadRequestError } from '../errors/index.js'
+import { BadRequestError, UnauthenticatedError } from '../errors/index.js'
 
 // Using express-async-error catching
 const register = async (req, res, next) => {
@@ -16,11 +16,23 @@ const register = async (req, res, next) => {
         user: { firstName, lastName, email },
         token,
     })
-    // res.status(StatusCodes.OK).json({ msg: 'Register User' })
 }
 
 const login = async (req, res) => {
-    res.json({ msg: 'login' })
+    const { email, password } = req.body
+    const user = await User.findOne({ email }).select('+password')
+    if (!user) {
+        throw new UnauthenticatedError(
+            `There is no account associated with ${email}`
+        )
+    }
+    const validPassword = await user.comparePassword(password)
+    if (!validPassword) {
+        throw new UnauthenticatedError('Invalid Credentials')
+    }
+    const token = user.createJWT()
+    user.password = undefined
+    res.status(StatusCodes.OK).json({ user, token })
 }
 const updateUser = async (req, res) => {
     res.send('update user')

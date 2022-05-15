@@ -14,7 +14,7 @@ const defaultValues = {
 
 const Register = () => {
     const navigate = useNavigate()
-    const { registerUser, user, showAlert } = useAppContext()
+    const { registerUser, loginUser, user, showAlert } = useAppContext()
     const [values, setValues] = useState(defaultValues)
 
     useEffect(() => {
@@ -49,8 +49,7 @@ const Register = () => {
         const { firstName, lastName, email, password } = values
         const currentUser = { firstName, lastName, email, password }
         if (values.isMember) {
-            setValues(defaultValues)
-            // Login user
+            loginUser(currentUser)
         } else {
             registerUser(currentUser)
         }
