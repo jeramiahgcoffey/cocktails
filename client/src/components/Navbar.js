@@ -18,7 +18,7 @@ import LocalBarIcon from '@mui/icons-material/LocalBar'
 const Navbar = () => {
     const { logoutUser, user, toggleLoginModal } = useAppContext()
 
-    const pages = []
+    const pages = ['Submit a recipe', 'My drinks', 'My lists']
     const settings = user
         ? ['Profile', 'Account', 'Dashboard', 'Logout']
         : ['Login']
@@ -55,9 +55,9 @@ const Navbar = () => {
     }
 
     return (
-        <AppBar position='sticky' sx={{ marginBottom: 5 }}>
-            <Container maxWidth='xl' sx={{ justifyContent: 'space-between' }}>
-                <Toolbar>
+        <AppBar position='sticky'>
+            <Container maxWidth='xl'>
+                <Toolbar sx={{ justifyContent: 'space-between' }}>
                     <Box
                         onClick={() => {
                             console.log('here')
@@ -103,7 +103,7 @@ const Navbar = () => {
                         >
                             <MenuIcon />
                         </IconButton>
-                        <Menu
+                        {/* <Menu
                             id='menu-appbar'
                             anchorEl={anchorElNav}
                             anchorOrigin={{
@@ -131,7 +131,7 @@ const Navbar = () => {
                                     </Typography>
                                 </MenuItem>
                             ))}
-                        </Menu>
+                        </Menu> */}
                     </Box>
                     <Box
                         onClick={() => {
@@ -162,7 +162,7 @@ const Navbar = () => {
                             Cocktails
                         </Typography>
                     </Box>
-                    <Box
+                    {/* <Box
                         sx={{
                             flexGrow: 1,
                             display: { xs: 'none', md: 'flex' },
@@ -182,9 +182,9 @@ const Navbar = () => {
                                 {page}
                             </Button>
                         ))}
-                    </Box>
+                    </Box> */}
 
-                    <Box sx={{ flexGrow: 0 }}>
+                    <Box>
                         <Tooltip title='Open settings'>
                             <IconButton
                                 onClick={handleOpenUserMenu}

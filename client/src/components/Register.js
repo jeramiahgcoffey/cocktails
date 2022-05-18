@@ -1,8 +1,8 @@
-import { useEffect, useState } from 'react'
-import { Grid, Paper, TextField, Typography, Button } from '@mui/material'
+import { useState } from 'react'
+import { Paper, TextField, Typography, Button } from '@mui/material'
 import { useAppContext } from '../context/appContext'
-import { useNavigate } from 'react-router-dom'
 import AlertMessage from './AlertMessage'
+import { Box } from '@mui/system'
 
 const defaultValues = {
     firstName: '',
@@ -13,18 +13,9 @@ const defaultValues = {
 }
 
 const Register = () => {
-    // const navigate = useNavigate()
-    const { registerUser, loginUser, user, showAlert, toggleLoginModal } =
+    const { registerUser, loginUser, showAlert, toggleLoginModal } =
         useAppContext()
     const [values, setValues] = useState(defaultValues)
-
-    // useEffect(() => {
-    //     if (user) {
-    //         setTimeout(() => {
-    //             navigate('/')
-    //         }, 2000)
-    //     }
-    // }, [user, navigate])
 
     const toggleIsMember = () => {
         setValues((prevState) => {
@@ -58,7 +49,7 @@ const Register = () => {
 
     return (
         <>
-            <Grid
+            {/* <Grid
                 container
                 spacing={0}
                 direction='column'
@@ -169,7 +160,113 @@ const Register = () => {
                         </Typography>
                     </Paper>
                 </Grid>
-            </Grid>
+            </Grid> */}
+            <Box
+                display='flex'
+                justifyContent='center'
+                alignItems='center'
+                minHeight='100vh'
+            >
+                <Paper
+                    elevation={16}
+                    sx={{
+                        width: 320,
+                        margin: '20px',
+                        padding: '40px 20px',
+                        border: `1px solid black`,
+                    }}
+                >
+                    <Typography variant='h5' align='center' paragraph>
+                        {values.isMember ? 'Login' : 'Register'}
+                    </Typography>
+                    {showAlert && <AlertMessage />}
+                    <form onSubmit={handleSubmit}>
+                        {!values.isMember && (
+                            <>
+                                <TextField
+                                    fullWidth
+                                    required
+                                    margin='normal'
+                                    variant='standard'
+                                    id='fname'
+                                    name='firstName'
+                                    label='First Name'
+                                    type='text'
+                                    value={values.firstName}
+                                    onChange={handleInputChange}
+                                />
+                                <TextField
+                                    fullWidth
+                                    required
+                                    margin='normal'
+                                    variant='standard'
+                                    id='lname'
+                                    name='lastName'
+                                    label='Last Name'
+                                    type='text'
+                                    value={values.lastName}
+                                    onChange={handleInputChange}
+                                />
+                            </>
+                        )}
+                        <TextField
+                            fullWidth
+                            required
+                            margin='normal'
+                            variant='standard'
+                            id='email'
+                            name='email'
+                            label='Email'
+                            type='email'
+                            value={values.email}
+                            onChange={handleInputChange}
+                        />
+                        <TextField
+                            fullWidth
+                            required
+                            margin='normal'
+                            variant='standard'
+                            id='password'
+                            name='password'
+                            label='Password'
+                            type='password'
+                            value={values.password}
+                            onChange={handleInputChange}
+                        />
+                        <div className='form-submit'>
+                            <Button
+                                variant='contained'
+                                type='submit'
+                                disabled={showAlert}
+                                sx={{ marginRight: 2 }}
+                            >
+                                {values.isMember ? 'Login' : 'Sign Up'}
+                            </Button>
+                            <Button
+                                variant='outlined'
+                                color='primary'
+                                disabled={showAlert}
+                                onClick={() => {
+                                    // setValues(defaultValues)
+                                    toggleLoginModal()
+                                }}
+                            >
+                                Cancel
+                            </Button>
+                        </div>
+                    </form>
+                    <Typography sx={{ paddingTop: 3 }} variant='body2'>
+                        {values.isMember ? 'New here? ' : 'Already a member? '}
+                        <Button
+                            size='small'
+                            onClick={toggleIsMember}
+                            disabled={showAlert}
+                        >
+                            {values.isMember ? 'Register' : 'Sign In'}
+                        </Button>
+                    </Typography>
+                </Paper>
+            </Box>
         </>
     )
 }

@@ -6,9 +6,10 @@ import LoginModal from '../components/LoginModal'
 const Explore = () => {
     return (
         <>
-            <Navbar />
-            <LoginModal />
+            {/* <Navbar />
+            <LoginModal /> */}
             {/* <Search /> */}
+
             <CardContainer />
         </>
     )

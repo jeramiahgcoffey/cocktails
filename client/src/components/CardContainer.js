@@ -1,4 +1,4 @@
-import { Container, Grid } from '@mui/material'
+import { Box, Grid } from '@mui/material'
 import React from 'react'
 import CocktailCard from './CocktailCard'
 
@@ -7,13 +7,17 @@ const arr = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
 const CardContainer = () => {
     return (
         <div>
-            <Container>
-                <Grid container spacing={3} align='center'>
+            <Box>
+                <Grid container spacing={2} justifyContent='center'>
                     {arr.map((card, index) => {
-                        return <CocktailCard key={index} />
+                        return (
+                            <Grid item>
+                                <CocktailCard key={index} />
+                            </Grid>
+                        )
                     })}
                 </Grid>
-            </Container>
+            </Box>
         </div>
     )
 }
