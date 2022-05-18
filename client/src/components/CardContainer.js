@@ -6,7 +6,7 @@ const arr = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
 
 const CardContainer = () => {
     return (
-        <Box minWidth='100%' display='flex' sx={{ alignItems: 'center' }}>
+        <Box display='flex' sx={{ alignItems: 'center' }}>
             <Grid
                 container
                 spacing={4}
@@ -16,8 +16,8 @@ const CardContainer = () => {
             >
                 {arr.map((card, index) => {
                     return (
-                        <Grid item xs={12} sm={6} lg={4} xl={3}>
-                            <CocktailCard key={index} />
+                        <Grid item xs={12} sm={6} lg={4} xl={3} key={index}>
+                            <CocktailCard />
                         </Grid>
                     )
                 })}
