@@ -13,13 +13,24 @@ import ModeNight from '@mui/icons-material/ModeNight'
 import ListIcon from '@mui/icons-material/List'
 import GridView from '@mui/icons-material/GridView'
 import LocalBar from '@mui/icons-material/LocalBar'
+import { useNavigate } from 'react-router-dom'
+import { useAppContext } from '../context/appContext'
 
 const Sidebar = () => {
+    const { user, toggleLoginModal } = useAppContext()
+
+    const navigate = useNavigate()
+
     return (
         <Box sx={{ width: '280px' }}>
             <List sx={{ marginTop: 5 }}>
                 <ListItem disablePadding>
-                    <ListItemButton sx={{ padding: '20px 20px' }}>
+                    <ListItemButton
+                        sx={{ padding: '20px 20px' }}
+                        onClick={() => {
+                            navigate('/')
+                        }}
+                    >
                         <ListItemIcon>
                             <GridView />
                         </ListItemIcon>
@@ -27,7 +38,12 @@ const Sidebar = () => {
                     </ListItemButton>
                 </ListItem>
                 <ListItem disablePadding>
-                    <ListItemButton sx={{ padding: '20px 20px' }}>
+                    <ListItemButton
+                        sx={{ padding: '20px 20px' }}
+                        onClick={() =>
+                            user ? navigate('/user/lists') : toggleLoginModal()
+                        }
+                    >
                         <ListItemIcon>
                             <ListIcon />
                         </ListItemIcon>
@@ -35,7 +51,12 @@ const Sidebar = () => {
                     </ListItemButton>
                 </ListItem>
                 <ListItem disablePadding>
-                    <ListItemButton sx={{ padding: '20px 20px' }}>
+                    <ListItemButton
+                        sx={{ padding: '20px 20px' }}
+                        onClick={() =>
+                            user ? navigate('/user/drinks') : toggleLoginModal()
+                        }
+                    >
                         <ListItemIcon>
                             <LocalBar />
                         </ListItemIcon>
@@ -43,7 +64,12 @@ const Sidebar = () => {
                     </ListItemButton>
                 </ListItem>
                 <ListItem disablePadding>
-                    <ListItemButton sx={{ padding: '20px 20px' }}>
+                    <ListItemButton
+                        sx={{ padding: '20px 20px' }}
+                        onClick={() =>
+                            user ? navigate('/user/post') : toggleLoginModal()
+                        }
+                    >
                         <ListItemIcon>
                             <Add />
                         </ListItemIcon>

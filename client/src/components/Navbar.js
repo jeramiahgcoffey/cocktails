@@ -18,10 +18,15 @@ import LocalBarIcon from '@mui/icons-material/LocalBar'
 const Navbar = () => {
     const { logoutUser, user, toggleLoginModal } = useAppContext()
 
+    const pages = [
+        { page: 'Explore', path: '/' },
+        { page: 'My Lists', path: '/user/lists' },
+        { page: 'My Drinks', path: '/user/drinks' },
+        { page: 'Post a Recipe', path: '/user/post' },
+    ]
     const settings = user
         ? ['Profile', 'Account', 'Dashboard', 'Logout']
         : ['Login']
-
     const [anchorElNav, setAnchorElNav] = useState(null)
     const [anchorElUser, setAnchorElUser] = useState(null)
 
@@ -34,8 +39,9 @@ const Navbar = () => {
         setAnchorElUser(event.currentTarget)
     }
 
-    const handleCloseNavMenu = () => {
+    const handleCloseNavMenu = (path) => {
         setAnchorElNav(null)
+        user ? navigate(path) : toggleLoginModal()
     }
 
     const handleCloseUserMenu = (e) => {
@@ -62,7 +68,6 @@ const Navbar = () => {
                 >
                     <Box
                         onClick={() => {
-                            console.log('here')
                             navigate('/')
                         }}
                         display='flex'
@@ -105,7 +110,7 @@ const Navbar = () => {
                         >
                             <MenuIcon />
                         </IconButton>
-                        {/* <Menu
+                        <Menu
                             id='menu-appbar'
                             anchorEl={anchorElNav}
                             anchorOrigin={{
@@ -123,17 +128,19 @@ const Navbar = () => {
                                 display: { xs: 'block', md: 'none' },
                             }}
                         >
-                            {pages.map((page) => (
+                            {pages.map((page, index) => (
                                 <MenuItem
-                                    key={page}
-                                    onClick={handleCloseNavMenu}
+                                    key={index}
+                                    onClick={() =>
+                                        handleCloseNavMenu(page.path)
+                                    }
                                 >
                                     <Typography textAlign='center'>
-                                        {page}
+                                        {page.page}
                                     </Typography>
                                 </MenuItem>
                             ))}
-                        </Menu> */}
+                        </Menu>
                     </Box>
                     <Box
                         onClick={() => {

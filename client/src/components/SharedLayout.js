@@ -20,7 +20,7 @@ const SharedLayout = () => {
                         <Sidebar />
                     </Box>
                 </Box>
-                <Box padding={5} bgcolor='grey.100'>
+                <Box padding={5} bgcolor='grey.100' width='100%' height='100vh'>
                     <Outlet />
                 </Box>
             </Stack>
