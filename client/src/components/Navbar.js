@@ -18,7 +18,6 @@ import LocalBarIcon from '@mui/icons-material/LocalBar'
 const Navbar = () => {
     const { logoutUser, user, toggleLoginModal } = useAppContext()
 
-    const pages = ['Submit a recipe', 'My drinks', 'My lists']
     const settings = user
         ? ['Profile', 'Account', 'Dashboard', 'Logout']
         : ['Login']
@@ -57,7 +56,10 @@ const Navbar = () => {
     return (
         <AppBar position='sticky'>
             <Container maxWidth='xl'>
-                <Toolbar sx={{ justifyContent: 'space-between' }}>
+                <Toolbar
+                    sx={{ justifyContent: 'space-between' }}
+                    disableGutters
+                >
                     <Box
                         onClick={() => {
                             console.log('here')

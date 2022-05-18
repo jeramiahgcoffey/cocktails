@@ -5,43 +5,58 @@ import {
     ListItemIcon,
     ListItemText,
     Box,
+    Switch,
+    Divider,
 } from '@mui/material'
-import InboxIcon from '@mui/icons-material/Inbox'
+import Add from '@mui/icons-material/AddCircle'
+import ModeNight from '@mui/icons-material/ModeNight'
+import ListIcon from '@mui/icons-material/List'
+import GridView from '@mui/icons-material/GridView'
+import LocalBar from '@mui/icons-material/LocalBar'
 
 const Sidebar = () => {
     return (
-        <Box>
-            <List>
-                <ListItem>
-                    <ListItemButton>
+        <Box sx={{ width: '280px' }}>
+            <List sx={{ marginTop: 5 }}>
+                <ListItem disablePadding>
+                    <ListItemButton sx={{ padding: '20px 20px' }}>
                         <ListItemIcon>
-                            <InboxIcon />
+                            <GridView />
                         </ListItemIcon>
-                        <ListItemText primary='Inbox' />
+                        <ListItemText primary='Explore' />
                     </ListItemButton>
                 </ListItem>
-                <ListItem>
-                    <ListItemButton>
+                <ListItem disablePadding>
+                    <ListItemButton sx={{ padding: '20px 20px' }}>
                         <ListItemIcon>
-                            <InboxIcon />
+                            <ListIcon />
                         </ListItemIcon>
-                        <ListItemText primary='Inbox' />
+                        <ListItemText primary='My Lists' />
                     </ListItemButton>
                 </ListItem>
-                <ListItem>
-                    <ListItemButton>
+                <ListItem disablePadding>
+                    <ListItemButton sx={{ padding: '20px 20px' }}>
                         <ListItemIcon>
-                            <InboxIcon />
+                            <LocalBar />
                         </ListItemIcon>
-                        <ListItemText primary='Inbox' />
+                        <ListItemText primary='My Drinks' />
                     </ListItemButton>
                 </ListItem>
-                <ListItem>
-                    <ListItemButton>
+                <ListItem disablePadding>
+                    <ListItemButton sx={{ padding: '20px 20px' }}>
                         <ListItemIcon>
-                            <InboxIcon />
+                            <Add />
                         </ListItemIcon>
-                        <ListItemText primary='Inbox' />
+                        <ListItemText primary='Post a Recipe' />
+                    </ListItemButton>
+                </ListItem>
+                <Divider variant='middle' />
+                <ListItem disablePadding>
+                    <ListItemButton sx={{ padding: '20px 20px' }}>
+                        <ListItemIcon>
+                            <ModeNight />
+                        </ListItemIcon>
+                        <Switch edge='end' />
                     </ListItemButton>
                 </ListItem>
             </List>

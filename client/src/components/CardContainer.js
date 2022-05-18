@@ -6,19 +6,23 @@ const arr = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
 
 const CardContainer = () => {
     return (
-        <div>
-            <Box>
-                <Grid container spacing={2} justifyContent='center'>
-                    {arr.map((card, index) => {
-                        return (
-                            <Grid item>
-                                <CocktailCard key={index} />
-                            </Grid>
-                        )
-                    })}
-                </Grid>
-            </Box>
-        </div>
+        <Box minWidth='100%' display='flex' sx={{ alignItems: 'center' }}>
+            <Grid
+                container
+                spacing={4}
+                direction='row'
+                // justifyContent='center'
+                alignItems='flex-end'
+            >
+                {arr.map((card, index) => {
+                    return (
+                        <Grid item xs={12} sm={6} lg={4} xl={3}>
+                            <CocktailCard key={index} />
+                        </Grid>
+                    )
+                })}
+            </Grid>
+        </Box>
     )
 }
 
