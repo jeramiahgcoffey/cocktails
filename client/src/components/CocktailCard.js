@@ -1,13 +1,4 @@
-import {
-    Button,
-    Card,
-    CardActions,
-    CardContent,
-    CardMedia,
-    Chip,
-    Grid,
-    Typography,
-} from '@mui/material'
+import { Button, Card, CardMedia, Chip, Grid, Typography } from '@mui/material'
 import React from 'react'
 
 const CocktailCard = () => {

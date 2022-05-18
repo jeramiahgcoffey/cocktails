@@ -7,6 +7,7 @@ import {
     LOGIN_USER_SUCCESS,
     LOGIN_USER_ERROR,
     LOGOUT_USER,
+    TOGGLE_LOGIN_MODAL,
 } from './actions'
 
 import { initalState } from './appContext'
@@ -33,7 +34,7 @@ const reducer = (state, action) => {
                 user: action.payload.user,
                 showAlert: true,
                 alertType: 'success',
-                alertText: 'Registration successful, redirecting...',
+                alertText: 'Registration successful!',
             }
         case REGISTER_USER_ERROR:
             return {
@@ -56,7 +57,7 @@ const reducer = (state, action) => {
                 user: action.payload.user,
                 showAlert: true,
                 alertType: 'success',
-                alertText: 'Login successful, redirecting...',
+                alertText: 'Login successful!',
             }
         case LOGIN_USER_ERROR:
             return {
@@ -71,6 +72,11 @@ const reducer = (state, action) => {
                 ...initalState,
                 user: null,
                 token: null,
+            }
+        case TOGGLE_LOGIN_MODAL:
+            return {
+                ...state,
+                loginModalOpen: !state.loginModalOpen,
             }
         default:
             throw new Error(`no such action: ${action.type}`)

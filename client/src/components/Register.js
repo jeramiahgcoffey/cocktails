@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import { Grid, Paper, TextField, Typography, Button } from '@mui/material'
 import { useAppContext } from '../context/appContext'
 import { useNavigate } from 'react-router-dom'
-import AlertMessage from '../components/AlertMessage'
+import AlertMessage from './AlertMessage'
 
 const defaultValues = {
     firstName: '',
@@ -13,17 +13,18 @@ const defaultValues = {
 }
 
 const Register = () => {
-    const navigate = useNavigate()
-    const { registerUser, loginUser, user, showAlert } = useAppContext()
+    // const navigate = useNavigate()
+    const { registerUser, loginUser, user, showAlert, toggleLoginModal } =
+        useAppContext()
     const [values, setValues] = useState(defaultValues)
 
-    useEffect(() => {
-        if (user) {
-            setTimeout(() => {
-                navigate('/')
-            }, 2000)
-        }
-    }, [user, navigate])
+    // useEffect(() => {
+    //     if (user) {
+    //         setTimeout(() => {
+    //             navigate('/')
+    //         }, 2000)
+    //     }
+    // }, [user, navigate])
 
     const toggleIsMember = () => {
         setValues((prevState) => {
@@ -72,6 +73,7 @@ const Register = () => {
                             width: 320,
                             margin: '20px',
                             padding: '40px 20px',
+                            border: `1px solid black`,
                         }}
                     >
                         <Typography variant='h5' align='center' paragraph>
@@ -145,7 +147,8 @@ const Register = () => {
                                     color='primary'
                                     disabled={showAlert}
                                     onClick={() => {
-                                        setValues(defaultValues)
+                                        // setValues(defaultValues)
+                                        toggleLoginModal()
                                     }}
                                 >
                                     Cancel

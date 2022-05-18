@@ -10,6 +10,7 @@ import {
     LOGIN_USER_SUCCESS,
     LOGIN_USER_ERROR,
     LOGOUT_USER,
+    TOGGLE_LOGIN_MODAL,
 } from './actions'
 
 const token = localStorage.getItem('token')
@@ -20,6 +21,7 @@ const initalState = {
     alertType: '',
     alertText: '',
     isLoading: false,
+    loginModalOpen: false,
     user: user ? JSON.parse(user) : null,
     token: token,
 }
@@ -46,7 +48,12 @@ const AppProvider = ({ children }) => {
     const clearAlert = () => {
         setTimeout(() => {
             dispatch({ type: CLEAR_ALERT })
-        }, 2000)
+        }, 3000)
+    }
+
+    const toggleLoginModal = () => {
+        dispatch({ type: TOGGLE_LOGIN_MODAL })
+        clearAlert()
     }
 
     const registerUser = async (currentUser) => {
@@ -60,6 +67,7 @@ const AppProvider = ({ children }) => {
             const { user, token } = response.data
             dispatch({ type: REGISTER_USER_SUCCESS, payload: { user, token } })
             addUserToLocalStorage({ user, token })
+            setTimeout(toggleLoginModal, 1500)
         } catch (error) {
             // console.log(error)
             dispatch({
@@ -77,6 +85,7 @@ const AppProvider = ({ children }) => {
             const { user, token } = response.data
             dispatch({ type: LOGIN_USER_SUCCESS, payload: { user, token } })
             addUserToLocalStorage({ user, token })
+            setTimeout(toggleLoginModal, 1500)
         } catch (error) {
             dispatch({
                 type: LOGIN_USER_ERROR,
@@ -94,7 +103,13 @@ const AppProvider = ({ children }) => {
 
     return (
         <AppContext.Provider
-            value={{ ...state, registerUser, loginUser, logoutUser }}
+            value={{
+                ...state,
+                registerUser,
+                loginUser,
+                logoutUser,
+                toggleLoginModal,
+            }}
         >
             {children}
         </AppContext.Provider>

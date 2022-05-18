@@ -16,10 +16,12 @@ import MenuItem from '@mui/material/MenuItem'
 import LocalBarIcon from '@mui/icons-material/LocalBar'
 
 const Navbar = () => {
-    const { logoutUser } = useAppContext()
+    const { logoutUser, user, toggleLoginModal } = useAppContext()
 
     const pages = []
-    const settings = ['Profile', 'Account', 'Dashboard', 'Logout']
+    const settings = user
+        ? ['Profile', 'Account', 'Dashboard', 'Logout']
+        : ['Login']
 
     const [anchorElNav, setAnchorElNav] = useState(null)
     const [anchorElUser, setAnchorElUser] = useState(null)
@@ -39,38 +41,52 @@ const Navbar = () => {
 
     const handleCloseUserMenu = (e) => {
         const id = e.target.id
-        if (id === 'Logout') {
-            logoutUser()
-            navigate('/register')
+        switch (id) {
+            case 'Logout':
+                logoutUser()
+                break
+            case 'Login':
+                toggleLoginModal()
+                break
+            default:
+                break
         }
         setAnchorElUser(null)
     }
 
     return (
         <AppBar position='sticky' sx={{ marginBottom: 5 }}>
-            <Container maxWidth='xl'>
+            <Container maxWidth='xl' sx={{ justifyContent: 'space-between' }}>
                 <Toolbar>
-                    <LocalBarIcon
-                        sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }}
-                    />
-                    <Typography
-                        variant='h6'
-                        noWrap
-                        component='a'
-                        href='/'
-                        sx={{
-                            mr: 2,
-                            display: { xs: 'none', md: 'flex' },
-                            fontFamily: 'monospace',
-                            fontWeight: 700,
-                            letterSpacing: '.3rem',
-                            color: 'inherit',
-                            textDecoration: 'none',
+                    <Box
+                        onClick={() => {
+                            console.log('here')
+                            navigate('/')
                         }}
+                        display='flex'
+                        alignItems='center'
+                        sx={{ cursor: 'pointer' }}
                     >
-                        Cocktails
-                    </Typography>
-
+                        <LocalBarIcon
+                            sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }}
+                        />
+                        <Typography
+                            variant='h6'
+                            noWrap
+                            component='a'
+                            sx={{
+                                mr: 2,
+                                display: { xs: 'none', md: 'flex' },
+                                fontFamily: 'monospace',
+                                fontWeight: 700,
+                                letterSpacing: '.3rem',
+                                color: 'inherit',
+                                textDecoration: 'none',
+                            }}
+                        >
+                            Cocktails
+                        </Typography>
+                    </Box>
                     <Box
                         sx={{
                             flexGrow: 1,
@@ -117,27 +133,35 @@ const Navbar = () => {
                             ))}
                         </Menu>
                     </Box>
-                    <LocalBarIcon
-                        sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }}
-                    />
-                    <Typography
-                        variant='h5'
-                        noWrap
-                        component='a'
-                        href=''
+                    <Box
+                        onClick={() => {
+                            console.log('here')
+                            navigate('/')
+                        }}
                         sx={{
-                            mr: 2,
+                            cursor: 'pointer',
                             display: { xs: 'flex', md: 'none' },
                             flexGrow: 1,
-                            fontFamily: 'monospace',
-                            fontWeight: 700,
-                            letterSpacing: '.3rem',
-                            color: 'inherit',
-                            textDecoration: 'none',
+                            alignItems: 'center',
                         }}
                     >
-                        Cocktails
-                    </Typography>
+                        <LocalBarIcon sx={{ mr: 1 }} />
+                        <Typography
+                            variant='h5'
+                            noWrap
+                            component='a'
+                            sx={{
+                                mr: 2,
+                                fontFamily: 'monospace',
+                                fontWeight: 700,
+                                letterSpacing: '.3rem',
+                                color: 'inherit',
+                                textDecoration: 'none',
+                            }}
+                        >
+                            Cocktails
+                        </Typography>
+                    </Box>
                     <Box
                         sx={{
                             flexGrow: 1,
@@ -166,7 +190,14 @@ const Navbar = () => {
                                 onClick={handleOpenUserMenu}
                                 sx={{ p: 0 }}
                             >
-                                <Avatar alt='Remy Sharp' src='' />
+                                <Avatar
+                                    alt={
+                                        user
+                                            ? user.firstName.toUpperCase()
+                                            : 'User Avatar'
+                                    }
+                                    src={user ? '/' : ''}
+                                />
                             </IconButton>
                         </Tooltip>
                         <Menu
