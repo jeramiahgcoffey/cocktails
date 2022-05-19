@@ -93,18 +93,16 @@ const Sidebar = () => {
                     </ListItemButton>
                 </ListItem>
                 <Divider variant='middle' />
-                <ListItem disablePadding>
-                    <ListItemButton sx={{ padding: '20px 20px' }}>
-                        <ListItemIcon>
-                            <ModeNight />
-                        </ListItemIcon>
-                        <Switch
-                            edge='end'
-                            checked={darkMode}
-                            onChange={() => toggleDarkMode((prev) => !prev)}
-                            inputProps={{ 'aria-label': 'controlled' }}
-                        />
-                    </ListItemButton>
+                <ListItem disablePadding sx={{ padding: '20px 20px' }}>
+                    <ListItemIcon>
+                        <ModeNight />
+                    </ListItemIcon>
+                    <Switch
+                        edge='end'
+                        checked={darkMode}
+                        onChange={() => toggleDarkMode((prev) => !prev)}
+                        inputProps={{ 'aria-label': 'controlled' }}
+                    />
                 </ListItem>
             </List>
         </Box>
