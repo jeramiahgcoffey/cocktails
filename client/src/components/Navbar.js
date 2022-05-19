@@ -21,6 +21,7 @@ const Navbar = () => {
         logoutUser,
         user,
         toggleLoginModal,
+        selectedIndex,
         setSelectedIndex,
         darkMode,
         toggleDarkMode,
@@ -49,8 +50,20 @@ const Navbar = () => {
 
     const handleCloseNavMenu = (path, index) => {
         setAnchorElNav(null)
-        setSelectedIndex(index)
-        user ? navigate(path) : toggleLoginModal()
+    }
+
+    const handleNavigation = (path, index) => {
+        // index === 0
+        //     ? navigate(path), setSelectedIndex(index)
+        //     : user
+        //     ? navigate(path)
+        //     : toggleLoginModal()
+        if (index === 0 || user) {
+            navigate(path)
+            setSelectedIndex(index)
+        } else {
+            toggleLoginModal()
+        }
     }
 
     const handleCloseUserMenu = (e) => {
@@ -141,12 +154,10 @@ const Navbar = () => {
                             {pages.map((page, index) => (
                                 <MenuItem
                                     key={index}
-                                    onClick={() =>
-                                        handleCloseNavMenu(
-                                            page.path,
-                                            page.index
-                                        )
-                                    }
+                                    onClick={() => {
+                                        handleCloseNavMenu()
+                                        handleNavigation(page.path, page.index)
+                                    }}
                                 >
                                     <Typography textAlign='center'>
                                         {page.page}

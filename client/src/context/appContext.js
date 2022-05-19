@@ -18,10 +18,11 @@ import {
 const token = localStorage.getItem('token')
 const user = localStorage.getItem('user')
 const darkMode = localStorage.getItem('darkMode')
+const selectedIndex = localStorage.getItem('selectedIndex')
 
 const initalState = {
     darkMode: darkMode ? JSON.parse(darkMode) : false,
-    selectedIndex: 0,
+    selectedIndex: selectedIndex ? selectedIndex : 0,
     showAlert: false,
     alertType: '',
     alertText: '',
@@ -49,6 +50,7 @@ const AppProvider = ({ children }) => {
     }
 
     const setSelectedIndex = (index) => {
+        localStorage.setItem('selectedIndex', index)
         dispatch({ type: SET_SELECTED_INDEX, payload: { index } })
     }
 
@@ -60,6 +62,7 @@ const AppProvider = ({ children }) => {
     const removeUserFromLocalStorage = () => {
         localStorage.removeItem('user')
         localStorage.removeItem('token')
+        localStorage.removeItem('selectedIndex')
     }
 
     const clearAlert = () => {
@@ -75,7 +78,6 @@ const AppProvider = ({ children }) => {
 
     const registerUser = async (currentUser) => {
         dispatch({ type: REGISTER_USER_BEGIN })
-        // console.log(currentUser)
         try {
             const response = await axios.post(
                 '/api/v1/auth/register',

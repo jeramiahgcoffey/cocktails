@@ -26,6 +26,10 @@ const DrinkSchema = new mongoose.Schema(
             required: [true, 'Please add instructions'],
             minlength: [10, 'Instructions must be at least 10 characters'],
         },
+        likes: {
+            type: Number,
+            default: 0,
+        },
         createdBy: {
             type: mongoose.Types.ObjectId,
             ref: 'User',

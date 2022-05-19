@@ -15,7 +15,7 @@ import GridView from '@mui/icons-material/GridView'
 import LocalBar from '@mui/icons-material/LocalBar'
 import { useNavigate } from 'react-router-dom'
 import { useAppContext } from '../context/appContext'
-import { useState } from 'react'
+import { useEffect } from 'react'
 
 const Sidebar = () => {
     const {
