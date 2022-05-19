@@ -10,6 +10,11 @@ import {
     TOGGLE_LOGIN_MODAL,
     TOGGLE_DARK_MODE,
     SET_SELECTED_INDEX,
+    POST_RECIPE_BEGIN,
+    POST_RECIPE_SUCCESS,
+    POST_RECIPE_ERROR,
+    INPUT_CHANGE,
+    CLEAR_INPUT_VALUES,
 } from './actions'
 
 import { initalState } from './appContext'
@@ -72,6 +77,44 @@ const reducer = (state, action) => {
                 alertText: 'Login successful!',
             }
         case LOGIN_USER_ERROR:
+            return {
+                ...state,
+                isLoading: false,
+                alertText: action.payload.msg,
+                alertType: 'error',
+                showAlert: true,
+            }
+        case INPUT_CHANGE:
+            return {
+                ...state,
+                [action.payload.key]: action.payload.value,
+            }
+        case CLEAR_INPUT_VALUES:
+            const defaultValues = {
+                name: '',
+                imageURL: '',
+                tags: '',
+                ingredients: '',
+                instructions: '',
+            }
+            return {
+                ...state,
+                ...defaultValues,
+            }
+        case POST_RECIPE_BEGIN:
+            return {
+                ...state,
+                isLoading: true,
+            }
+        case POST_RECIPE_SUCCESS:
+            return {
+                ...state,
+                isLoading: false,
+                showAlert: true,
+                alertType: 'success',
+                alertText: 'Recipe posted successfully!',
+            }
+        case POST_RECIPE_ERROR:
             return {
                 ...state,
                 isLoading: false,

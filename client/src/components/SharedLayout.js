@@ -9,7 +9,7 @@ const SharedLayout = () => {
     const { darkMode } = useAppContext()
 
     return (
-        <>
+        <main style={{ height: '100vh' }}>
             <Navbar />
             <LoginModal />
             <Stack
@@ -36,7 +36,7 @@ const SharedLayout = () => {
                     <Outlet />
                 </Box>
             </Stack>
-        </>
+        </main>
     )
 }
 

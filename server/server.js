@@ -6,6 +6,7 @@ import drinksRouter from './routers/drinksRouter.js'
 import 'dotenv/config'
 import notFoundMiddleware from './middleware/not-found.js'
 import errorHandlerMiddleware from './middleware/error-handler.js'
+import authenticateUser from './middleware/auth.js'
 
 const app = express()
 app.use(express.json())
@@ -15,7 +16,7 @@ app.get('/', (req, res) => {
 })
 
 app.use('/api/v1/auth', authRouter)
-app.use('/api/v1/drinks', drinksRouter)
+app.use('/api/v1/drinks', authenticateUser, drinksRouter)
 
 app.use(notFoundMiddleware)
 app.use(errorHandlerMiddleware)

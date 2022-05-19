@@ -2,16 +2,14 @@ import Drink from '../models/Drink.js'
 import { StatusCodes } from 'http-status-codes'
 
 const createDrink = async (req, res) => {
-    const { name, imageURL, ingredients, tags, instructions, createdBy } =
-        req.body
-
+    const { name, imageURL, ingredients, tags, instructions } = req.body
     const drink = await Drink.create({
         name,
         imageURL,
         ingredients,
         tags,
         instructions,
-        createdBy,
+        createdBy: req.user.userId,
     })
 
     res.status(StatusCodes.CREATED).json({

@@ -13,6 +13,11 @@ import {
     TOGGLE_LOGIN_MODAL,
     TOGGLE_DARK_MODE,
     SET_SELECTED_INDEX,
+    POST_RECIPE_BEGIN,
+    POST_RECIPE_SUCCESS,
+    POST_RECIPE_ERROR,
+    INPUT_CHANGE,
+    CLEAR_INPUT_VALUES,
 } from './actions'
 
 const token = localStorage.getItem('token')
@@ -21,7 +26,7 @@ const darkMode = localStorage.getItem('darkMode')
 const selectedIndex = localStorage.getItem('selectedIndex')
 
 const initalState = {
-    darkMode: darkMode ? JSON.parse(darkMode) : false,
+    darkMode: darkMode ? JSON.parse(darkMode) : true,
     selectedIndex: selectedIndex ? selectedIndex : 0,
     showAlert: false,
     alertType: '',
@@ -30,6 +35,11 @@ const initalState = {
     loginModalOpen: false,
     user: user ? JSON.parse(user) : null,
     token: token,
+    name: '',
+    imageURL: '',
+    tags: '',
+    ingredients: '',
+    instructions: '',
 }
 
 const AppContext = createContext()
@@ -37,9 +47,34 @@ const AppContext = createContext()
 const AppProvider = ({ children }) => {
     const [state, dispatch] = useReducer(reducer, initalState)
 
-    // const authFetch = axios.create({
-    //     baseURL: '/api/v1',
-    // })
+    // axios
+    const authFetch = axios.create({
+        baseURL: '/api/v1',
+    })
+    // request
+    authFetch.interceptors.request.use(
+        (config) => {
+            config.headers.common['Authorization'] = `Bearer ${state.token}`
+            return config
+        },
+        (error) => {
+            return Promise.reject(error)
+        }
+    )
+    // response
+    authFetch.interceptors.response.use(
+        (response) => {
+            return response
+        },
+        (error) => {
+            // console.log(error.response)
+            if (error.response.status === 401) {
+                logoutUser()
+            }
+            return Promise.reject(error)
+        }
+    )
+    // ************************************** //
 
     const toggleDarkMode = () => {
         dispatch({ type: TOGGLE_DARK_MODE })
@@ -120,6 +155,35 @@ const AppProvider = ({ children }) => {
         dispatch({ type: LOGOUT_USER })
     }
 
+    const handleInputChange = (key, value) => {
+        dispatch({ type: INPUT_CHANGE, payload: { key, value } })
+    }
+
+    const clearInputValues = () => {
+        dispatch({ type: CLEAR_INPUT_VALUES })
+    }
+
+    const postRecipe = async () => {
+        dispatch({ type: POST_RECIPE_BEGIN })
+        try {
+            const { name, imageURL, instructions } = state
+            const tags = state.tags.split(',').map((tag) => tag.trim())
+            const ingredients = state.ingredients
+                .split(',')
+                .map((tag) => tag.trim())
+            const recipe = { name, imageURL, instructions, tags, ingredients }
+            await authFetch.post('/drinks', recipe)
+            dispatch({ type: POST_RECIPE_SUCCESS })
+            dispatch({ type: CLEAR_INPUT_VALUES })
+        } catch (error) {
+            dispatch({
+                type: POST_RECIPE_ERROR,
+                payload: { msg: error.response.data.msg },
+            })
+        }
+        clearAlert()
+    }
+
     return (
         <AppContext.Provider
             value={{
@@ -130,6 +194,9 @@ const AppProvider = ({ children }) => {
                 loginUser,
                 logoutUser,
                 toggleLoginModal,
+                handleInputChange,
+                clearInputValues,
+                postRecipe,
             }}
         >
             {children}

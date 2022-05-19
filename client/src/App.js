@@ -12,7 +12,7 @@ import { Box } from '@mui/material'
 import { useAppContext } from './context/appContext'
 
 function App() {
-    const { darkMode, toggleDarkMode } = useAppContext()
+    const { darkMode } = useAppContext()
 
     const modeTheme = createTheme({
         palette: {
