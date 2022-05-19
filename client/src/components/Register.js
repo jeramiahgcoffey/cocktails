@@ -184,6 +184,7 @@ const Register = () => {
                         {!values.isMember && (
                             <>
                                 <TextField
+                                    autoFocus={!values.isMember}
                                     fullWidth
                                     required
                                     margin='normal'
@@ -212,6 +213,7 @@ const Register = () => {
                         <TextField
                             fullWidth
                             required
+                            autoFocus={values.isMember}
                             margin='normal'
                             variant='standard'
                             id='email'

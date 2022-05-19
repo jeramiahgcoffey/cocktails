@@ -10,19 +10,27 @@ import Menu from '@mui/material/Menu'
 import MenuIcon from '@mui/icons-material/Menu'
 import Container from '@mui/material/Container'
 import Avatar from '@mui/material/Avatar'
-import Button from '@mui/material/Button'
 import Tooltip from '@mui/material/Tooltip'
 import MenuItem from '@mui/material/MenuItem'
 import LocalBarIcon from '@mui/icons-material/LocalBar'
+import ModeNight from '@mui/icons-material/ModeNight'
+import { ListItemIcon, Switch } from '@mui/material'
 
 const Navbar = () => {
-    const { logoutUser, user, toggleLoginModal } = useAppContext()
+    const {
+        logoutUser,
+        user,
+        toggleLoginModal,
+        setSelectedIndex,
+        darkMode,
+        toggleDarkMode,
+    } = useAppContext()
 
     const pages = [
-        { page: 'Explore', path: '/' },
-        { page: 'My Lists', path: '/user/lists' },
-        { page: 'My Drinks', path: '/user/drinks' },
-        { page: 'Post a Recipe', path: '/user/post' },
+        { page: 'Explore', path: '/', index: 0 },
+        { page: 'My Lists', path: '/user/lists', index: 1 },
+        { page: 'My Drinks', path: '/user/drinks', index: 2 },
+        { page: 'Post a Recipe', path: '/user/post', index: 3 },
     ]
     const settings = user
         ? ['Profile', 'Account', 'Dashboard', 'Logout']
@@ -39,8 +47,9 @@ const Navbar = () => {
         setAnchorElUser(event.currentTarget)
     }
 
-    const handleCloseNavMenu = (path) => {
+    const handleCloseNavMenu = (path, index) => {
         setAnchorElNav(null)
+        setSelectedIndex(index)
         user ? navigate(path) : toggleLoginModal()
     }
 
@@ -98,6 +107,7 @@ const Navbar = () => {
                         sx={{
                             flexGrow: 1,
                             display: { xs: 'flex', md: 'none' },
+                            alignItems: 'center',
                         }}
                     >
                         <IconButton
@@ -132,7 +142,10 @@ const Navbar = () => {
                                 <MenuItem
                                     key={index}
                                     onClick={() =>
-                                        handleCloseNavMenu(page.path)
+                                        handleCloseNavMenu(
+                                            page.path,
+                                            page.index
+                                        )
                                     }
                                 >
                                     <Typography textAlign='center'>
@@ -140,6 +153,19 @@ const Navbar = () => {
                                     </Typography>
                                 </MenuItem>
                             ))}
+                            <MenuItem>
+                                <ListItemIcon>
+                                    <ModeNight />
+                                </ListItemIcon>
+                                <Switch
+                                    edge='end'
+                                    checked={darkMode}
+                                    onChange={() =>
+                                        toggleDarkMode((prev) => !prev)
+                                    }
+                                    inputProps={{ 'aria-label': 'controlled' }}
+                                />
+                            </MenuItem>
                         </Menu>
                     </Box>
                     <Box

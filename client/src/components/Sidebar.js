@@ -15,20 +15,29 @@ import GridView from '@mui/icons-material/GridView'
 import LocalBar from '@mui/icons-material/LocalBar'
 import { useNavigate } from 'react-router-dom'
 import { useAppContext } from '../context/appContext'
+import { useState } from 'react'
 
 const Sidebar = () => {
-    const { user, toggleLoginModal } = useAppContext()
+    const {
+        user,
+        toggleLoginModal,
+        darkMode,
+        toggleDarkMode,
+        selectedIndex,
+        setSelectedIndex,
+    } = useAppContext()
 
     const navigate = useNavigate()
 
     return (
         <Box sx={{ width: '280px' }}>
             <List sx={{ marginTop: 5 }}>
-                <ListItem disablePadding>
+                <ListItem disablePadding selected={selectedIndex === 0}>
                     <ListItemButton
                         sx={{ padding: '20px 20px' }}
                         onClick={() => {
                             navigate('/')
+                            setSelectedIndex(0)
                         }}
                     >
                         <ListItemIcon>
@@ -37,11 +46,13 @@ const Sidebar = () => {
                         <ListItemText primary='Explore' />
                     </ListItemButton>
                 </ListItem>
-                <ListItem disablePadding>
+                <ListItem disablePadding selected={selectedIndex === 1}>
                     <ListItemButton
                         sx={{ padding: '20px 20px' }}
                         onClick={() =>
-                            user ? navigate('/user/lists') : toggleLoginModal()
+                            user
+                                ? (navigate('/user/lists'), setSelectedIndex(1))
+                                : toggleLoginModal()
                         }
                     >
                         <ListItemIcon>
@@ -50,11 +61,14 @@ const Sidebar = () => {
                         <ListItemText primary='My Lists' />
                     </ListItemButton>
                 </ListItem>
-                <ListItem disablePadding>
+                <ListItem disablePadding selected={selectedIndex === 2}>
                     <ListItemButton
                         sx={{ padding: '20px 20px' }}
                         onClick={() =>
-                            user ? navigate('/user/drinks') : toggleLoginModal()
+                            user
+                                ? (navigate('/user/drinks'),
+                                  setSelectedIndex(2))
+                                : toggleLoginModal()
                         }
                     >
                         <ListItemIcon>
@@ -63,11 +77,13 @@ const Sidebar = () => {
                         <ListItemText primary='My Drinks' />
                     </ListItemButton>
                 </ListItem>
-                <ListItem disablePadding>
+                <ListItem disablePadding selected={selectedIndex === 3}>
                     <ListItemButton
                         sx={{ padding: '20px 20px' }}
                         onClick={() =>
-                            user ? navigate('/user/post') : toggleLoginModal()
+                            user
+                                ? (navigate('/user/post'), setSelectedIndex(3))
+                                : toggleLoginModal()
                         }
                     >
                         <ListItemIcon>
@@ -82,7 +98,12 @@ const Sidebar = () => {
                         <ListItemIcon>
                             <ModeNight />
                         </ListItemIcon>
-                        <Switch edge='end' />
+                        <Switch
+                            edge='end'
+                            checked={darkMode}
+                            onChange={() => toggleDarkMode((prev) => !prev)}
+                            inputProps={{ 'aria-label': 'controlled' }}
+                        />
                     </ListItemButton>
                 </ListItem>
             </List>

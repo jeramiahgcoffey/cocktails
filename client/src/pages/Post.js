@@ -1,7 +1,8 @@
+import { Box } from '@mui/material'
 import React from 'react'
 
 const Post = () => {
-    return <div>Post</div>
+    return <Box height='100vh'>Post</Box>
 }
 
 export default Post

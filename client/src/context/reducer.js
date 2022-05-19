@@ -8,12 +8,24 @@ import {
     LOGIN_USER_ERROR,
     LOGOUT_USER,
     TOGGLE_LOGIN_MODAL,
+    TOGGLE_DARK_MODE,
+    SET_SELECTED_INDEX,
 } from './actions'
 
 import { initalState } from './appContext'
 
 const reducer = (state, action) => {
     switch (action.type) {
+        case TOGGLE_DARK_MODE:
+            return {
+                ...state,
+                darkMode: !state.darkMode,
+            }
+        case SET_SELECTED_INDEX:
+            return {
+                ...state,
+                selectedIndex: action.payload.index,
+            }
         case CLEAR_ALERT:
             return {
                 ...state,
@@ -70,6 +82,7 @@ const reducer = (state, action) => {
         case LOGOUT_USER:
             return {
                 ...initalState,
+                darkMode: state.darkMode,
                 user: null,
                 token: null,
             }

@@ -1,7 +1,8 @@
+import { Box } from '@mui/material'
 import React from 'react'
 
 const MyLists = () => {
-    return <div>MyLists</div>
+    return <Box height='100vh'>MyLists</Box>
 }
 
 export default MyLists

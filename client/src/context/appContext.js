@@ -11,12 +11,17 @@ import {
     LOGIN_USER_ERROR,
     LOGOUT_USER,
     TOGGLE_LOGIN_MODAL,
+    TOGGLE_DARK_MODE,
+    SET_SELECTED_INDEX,
 } from './actions'
 
 const token = localStorage.getItem('token')
 const user = localStorage.getItem('user')
+const darkMode = localStorage.getItem('darkMode')
 
 const initalState = {
+    darkMode: darkMode ? JSON.parse(darkMode) : false,
+    selectedIndex: 0,
     showAlert: false,
     alertType: '',
     alertText: '',
@@ -34,6 +39,18 @@ const AppProvider = ({ children }) => {
     // const authFetch = axios.create({
     //     baseURL: '/api/v1',
     // })
+
+    const toggleDarkMode = () => {
+        dispatch({ type: TOGGLE_DARK_MODE })
+        localStorage.setItem(
+            'darkMode',
+            state.darkMode ? JSON.stringify(false) : JSON.stringify(true)
+        )
+    }
+
+    const setSelectedIndex = (index) => {
+        dispatch({ type: SET_SELECTED_INDEX, payload: { index } })
+    }
 
     const addUserToLocalStorage = ({ user, token }) => {
         localStorage.setItem('user', JSON.stringify(user))
@@ -105,6 +122,8 @@ const AppProvider = ({ children }) => {
         <AppContext.Provider
             value={{
                 ...state,
+                toggleDarkMode,
+                setSelectedIndex,
                 registerUser,
                 loginUser,
                 logoutUser,
