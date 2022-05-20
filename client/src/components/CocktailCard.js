@@ -14,12 +14,22 @@ const CocktailCard = ({ drink }) => {
                 sx={{ maxWidth: '100%', height: 250 }}
             ></CardMedia>
             <div className='card__info'>
-                <Typography variant='h5'>{drink.name}</Typography>
-                <Typography variant='subtitle1'>
+                <Typography variant='h5' sx={{ textTransform: 'capitalize' }}>
+                    {drink.name}
+                </Typography>
+                <Typography
+                    variant='subtitle1'
+                    sx={{ textTransform: 'capitalize' }}
+                >
                     {drink.ingredients[0]}
                 </Typography>
                 <hr />
-                <Typography variant='body2' color='text.secondary'>
+                <Typography
+                    variant='body2'
+                    color='text.secondary'
+                    noWrap
+                    sx={{ textTransform: 'capitalize' }}
+                >
                     {drink.ingredients.map((ingredient, index) => {
                         if (index < drink.ingredients.length - 1) {
                             return `${ingredient}, `
@@ -28,13 +38,15 @@ const CocktailCard = ({ drink }) => {
                         }
                     })}
                 </Typography>
-                <div className='card__chips'>
-                    {drink.tags.map((tag) => (
+                <div className='card__chips' style={{ overflow: 'hidden' }}>
+                    {drink.tags.map((tag, index) => (
                         <Chip
+                            key={index}
                             size='small'
                             style={{ marginRight: '10px', marginBottom: '5px' }}
                             label={tag}
                             variant='outlined'
+                            sx={{ textTransform: 'capitalize' }}
                         />
                     ))}
                 </div>

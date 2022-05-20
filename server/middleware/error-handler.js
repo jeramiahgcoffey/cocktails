@@ -11,9 +11,7 @@ const errorHandlerMiddleware = (err, req, res, next) => {
     // Mongoose errors
     if (err.name === 'ValidationError') {
         defaultError.statusCode = StatusCodes.BAD_REQUEST
-        defaultError.msg = Object.values(err.errors)
-            .map((item) => item.message)
-            .join(', ')
+        defaultError.msg = Object.values(err.errors)[0].message
     } else if (err.code && err.code === 11000) {
         defaultError.statusCode = StatusCodes.BAD_REQUEST
         defaultError.msg = `${Object.keys(err.keyValue)} is already in use`

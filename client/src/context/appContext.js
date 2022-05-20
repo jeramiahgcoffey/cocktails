@@ -159,6 +159,7 @@ const AppProvider = ({ children }) => {
         console.log('logging out')
         removeUserFromLocalStorage()
         dispatch({ type: LOGOUT_USER })
+        getAllDrinks()
     }
 
     const getAllDrinks = async () => {

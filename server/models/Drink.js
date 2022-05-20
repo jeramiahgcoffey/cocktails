@@ -17,9 +17,14 @@ const DrinkSchema = new mongoose.Schema(
             required: [true, 'Please add at least 1 ingredient'],
         },
         tags: {
-            type: Array,
-            of: String,
+            type: [
+                {
+                    type: String,
+                    maxLength: [12, 'Each tag must be less than 13 characters'],
+                },
+            ],
             required: [true, 'Please add at least one tag'],
+            maxLength: [2, 'List may contain up to 2 tags'],
         },
         instructions: {
             type: String,

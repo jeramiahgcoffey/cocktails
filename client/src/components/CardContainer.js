@@ -10,7 +10,7 @@ const CardContainer = () => {
     }, [])
 
     return (
-        <Box display='flex' sx={{ alignItems: 'flex-start', height: '100vh' }}>
+        <Box display='flex' sx={{ alignItems: 'flex-start' }}>
             <Grid container spacing={4} direction='row' alignItems='flex-end'>
                 {drinks.map((drink, index) => {
                     return (

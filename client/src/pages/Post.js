@@ -73,7 +73,7 @@ const Post = () => {
                                 required
                                 margin='normal'
                                 variant='standard'
-                                placeholder='Comma seperated list of up to 3 tags'
+                                placeholder='Comma seperated list of up to 2 tags'
                                 id='tags'
                                 name='tags'
                                 label='Tags'
