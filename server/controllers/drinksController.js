@@ -26,7 +26,12 @@ const getUserDrinks = async (req, res) => {
     res.send('get user drinks')
 }
 const getAllDrinks = async (req, res) => {
-    res.send('get all drinks')
+    const all = await Drink.find()
+    res.status(StatusCodes.OK).json({
+        all,
+        totalDrinks: all.length,
+        numPages: 1,
+    })
 }
 
 export { createDrink, editDrink, deleteDrink, getUserDrinks, getAllDrinks }

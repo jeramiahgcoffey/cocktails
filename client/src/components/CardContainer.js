@@ -1,23 +1,21 @@
 import { Box, Grid } from '@mui/material'
-import React from 'react'
 import CocktailCard from './CocktailCard'
-
-const arr = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
+import { useAppContext } from '../context/appContext'
+import { useEffect } from 'react'
 
 const CardContainer = () => {
+    const { getAllDrinks, drinks } = useAppContext()
+    useEffect(() => {
+        getAllDrinks()
+    }, [])
+
     return (
-        <Box display='flex' sx={{ alignItems: 'center' }}>
-            <Grid
-                container
-                spacing={4}
-                direction='row'
-                // justifyContent='center'
-                alignItems='flex-end'
-            >
-                {arr.map((card, index) => {
+        <Box display='flex' sx={{ alignItems: 'flex-start', height: '100vh' }}>
+            <Grid container spacing={4} direction='row' alignItems='flex-end'>
+                {drinks.map((drink, index) => {
                     return (
                         <Grid item xs={12} sm={6} lg={4} xl={3} key={index}>
-                            <CocktailCard />
+                            <CocktailCard drink={drink} />
                         </Grid>
                     )
                 })}

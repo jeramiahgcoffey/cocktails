@@ -15,6 +15,8 @@ import {
     POST_RECIPE_ERROR,
     INPUT_CHANGE,
     CLEAR_INPUT_VALUES,
+    GET_DRINKS_BEGIN,
+    GET_DRINKS_SUCCESS,
 } from './actions'
 
 import { initalState } from './appContext'
@@ -83,6 +85,19 @@ const reducer = (state, action) => {
                 alertText: action.payload.msg,
                 alertType: 'error',
                 showAlert: true,
+            }
+        case GET_DRINKS_BEGIN:
+            return {
+                ...state,
+                isLoading: true,
+            }
+        case GET_DRINKS_SUCCESS:
+            return {
+                ...state,
+                isLoading: false,
+                drinks: action.payload.drinks,
+                totalDrinks: action.payload.totalDrinks,
+                numPages: action.payload.numPages,
             }
         case INPUT_CHANGE:
             return {

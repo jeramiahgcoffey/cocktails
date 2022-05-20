@@ -18,6 +18,8 @@ import {
     POST_RECIPE_ERROR,
     INPUT_CHANGE,
     CLEAR_INPUT_VALUES,
+    GET_DRINKS_BEGIN,
+    GET_DRINKS_SUCCESS,
 } from './actions'
 
 const token = localStorage.getItem('token')
@@ -35,6 +37,10 @@ const initalState = {
     loginModalOpen: false,
     user: user ? JSON.parse(user) : null,
     token: token,
+    drinks: [],
+    totalDrinks: 0,
+    numPages: 1,
+    page: 1,
     name: '',
     imageURL: '',
     tags: '',
@@ -103,7 +109,7 @@ const AppProvider = ({ children }) => {
     const clearAlert = () => {
         setTimeout(() => {
             dispatch({ type: CLEAR_ALERT })
-        }, 3000)
+        }, 2000)
     }
 
     const toggleLoginModal = () => {
@@ -155,6 +161,23 @@ const AppProvider = ({ children }) => {
         dispatch({ type: LOGOUT_USER })
     }
 
+    const getAllDrinks = async () => {
+        const url = '/drinks'
+        dispatch({ type: GET_DRINKS_BEGIN })
+        try {
+            const response = await authFetch(url)
+            const { all, totalDrinks, numPages } = response.data
+            // console.log(response)
+            dispatch({
+                type: GET_DRINKS_SUCCESS,
+                payload: { drinks: all, totalDrinks, numPages },
+            })
+        } catch (error) {
+            console.log(error)
+        }
+        clearAlert()
+    }
+
     const handleInputChange = (key, value) => {
         dispatch({ type: INPUT_CHANGE, payload: { key, value } })
     }
@@ -164,6 +187,7 @@ const AppProvider = ({ children }) => {
     }
 
     const postRecipe = async () => {
+        const url = '/drinks'
         dispatch({ type: POST_RECIPE_BEGIN })
         try {
             const { name, imageURL, instructions } = state
@@ -172,7 +196,7 @@ const AppProvider = ({ children }) => {
                 .split(',')
                 .map((tag) => tag.trim())
             const recipe = { name, imageURL, instructions, tags, ingredients }
-            await authFetch.post('/drinks', recipe)
+            await authFetch.post(url, recipe)
             dispatch({ type: POST_RECIPE_SUCCESS })
             dispatch({ type: CLEAR_INPUT_VALUES })
         } catch (error) {
@@ -193,6 +217,7 @@ const AppProvider = ({ children }) => {
                 registerUser,
                 loginUser,
                 logoutUser,
+                getAllDrinks,
                 toggleLoginModal,
                 handleInputChange,
                 clearInputValues,
