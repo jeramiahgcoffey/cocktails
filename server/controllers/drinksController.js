@@ -23,7 +23,12 @@ const deleteDrink = async (req, res) => {
     res.send('delete drink')
 }
 const getUserDrinks = async (req, res) => {
-    res.send('get user drinks')
+    const drinks = await Drink.find({ createdBy: req.user.userId })
+    res.status(StatusCodes.OK).json({
+        drinks,
+        totalDrinks: drinks.length,
+        numPages: 1,
+    })
 }
 const getAllDrinks = async (req, res) => {
     const all = await Drink.find()

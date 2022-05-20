@@ -11,6 +11,6 @@ const router = express.Router()
 
 router.route('/').post(createDrink).get(getAllDrinks)
 router.route('/:id').delete(deleteDrink).patch(editDrink)
-router.route('/user/:userId').get(getUserDrinks)
+router.route('/user').get(getUserDrinks)
 
 export default router

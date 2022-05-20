@@ -1,14 +1,7 @@
 import { Box, Grid } from '@mui/material'
 import CocktailCard from './CocktailCard'
-import { useAppContext } from '../context/appContext'
-import { useEffect } from 'react'
 
-const CardContainer = () => {
-    const { getAllDrinks, drinks } = useAppContext()
-    useEffect(() => {
-        getAllDrinks()
-    }, [])
-
+const CardContainer = ({ drinks }) => {
     return (
         <Box display='flex' sx={{ alignItems: 'flex-start' }}>
             <Grid container spacing={4} direction='row' alignItems='flex-end'>

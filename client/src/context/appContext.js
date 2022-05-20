@@ -179,6 +179,23 @@ const AppProvider = ({ children }) => {
         clearAlert()
     }
 
+    const getUserDrinks = async () => {
+        const url = '/drinks/user'
+        dispatch({ type: GET_DRINKS_BEGIN })
+        try {
+            const response = await authFetch(url)
+            const { drinks, totalDrinks, numPages } = response.data
+            // console.log(response.data)
+            dispatch({
+                type: GET_DRINKS_SUCCESS,
+                payload: { drinks, totalDrinks, numPages },
+            })
+        } catch (error) {
+            console.log(error)
+        }
+        clearAlert()
+    }
+
     const handleInputChange = (key, value) => {
         dispatch({ type: INPUT_CHANGE, payload: { key, value } })
     }
@@ -219,6 +236,7 @@ const AppProvider = ({ children }) => {
                 loginUser,
                 logoutUser,
                 getAllDrinks,
+                getUserDrinks,
                 toggleLoginModal,
                 handleInputChange,
                 clearInputValues,

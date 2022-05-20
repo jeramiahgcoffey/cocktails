@@ -23,6 +23,12 @@ const DrinkSchema = new mongoose.Schema(
                     maxLength: [12, 'Each tag must be less than 13 characters'],
                 },
             ],
+            validate: {
+                validator: function () {
+                    return !(this.tags.length > 2)
+                },
+                message: 'Tag list exceeds maximum size of 2',
+            },
             required: [true, 'Please add at least one tag'],
             maxLength: [2, 'List may contain up to 2 tags'],
         },
