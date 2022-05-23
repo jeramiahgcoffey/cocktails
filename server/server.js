@@ -12,7 +12,7 @@ const app = express()
 app.use(express.json())
 
 app.get('/', (req, res) => {
-    res.send('Hello World!')
+  res.send('Hello World!')
 })
 
 app.use('/api/v1/auth', authRouter)
@@ -24,14 +24,14 @@ app.use(errorHandlerMiddleware)
 const port = process.env.PORT || 4500
 
 const start = async () => {
-    try {
-        await connectDB(process.env.MONGO_URI)
-        app.listen(port, () => {
-            console.log(`Server is running on port ${port}...`)
-        })
-    } catch (error) {
-        console.error(error)
-    }
+  try {
+    await connectDB(process.env.MONGO_URI)
+    app.listen(port, () => {
+      console.log(`Server is running on port ${port}...`)
+    })
+  } catch (error) {
+    console.error(error)
+  }
 }
 
 start()

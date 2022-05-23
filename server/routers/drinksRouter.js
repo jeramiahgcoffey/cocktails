@@ -1,10 +1,10 @@
 import express from 'express'
 import {
-    createDrink,
-    editDrink,
-    deleteDrink,
-    getUserDrinks,
-    getAllDrinks,
+  createDrink,
+  editDrink,
+  deleteDrink,
+  getUserDrinks,
+  getAllDrinks,
 } from '../controllers/drinksController.js'
 
 const router = express.Router()
