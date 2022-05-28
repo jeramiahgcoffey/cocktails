@@ -9,11 +9,11 @@ const defaultValues = {
   lastName: '',
   email: '',
   password: '',
-  isMember: true,
+  isMember: true
 }
 
 const Register = () => {
-  const { registerUser, loginUser, showAlert, toggleLoginModal } =
+  const { registerUser, loginUser, showAlert, modalOpen, toggleModal } =
     useAppContext()
   const [values, setValues] = useState(defaultValues)
 
@@ -21,7 +21,7 @@ const Register = () => {
     setValues((prevState) => {
       return {
         ...prevState,
-        isMember: !prevState.isMember,
+        isMember: !prevState.isMember
       }
     })
   }
@@ -31,7 +31,7 @@ const Register = () => {
     setValues((prevState) => {
       return {
         ...prevState,
-        [name]: value,
+        [name]: value
       }
     })
   }
@@ -61,7 +61,7 @@ const Register = () => {
             width: 320,
             margin: '20px',
             padding: '40px 20px',
-            border: `1px solid black`,
+            border: `1px solid black`
           }}
         >
           <Typography variant='h5' align='center' paragraph>
@@ -138,7 +138,9 @@ const Register = () => {
                 disabled={showAlert}
                 onClick={() => {
                   // setValues(defaultValues)
-                  toggleLoginModal()
+                  if (modalOpen) {
+                    toggleModal()
+                  }
                 }}
               >
                 Cancel

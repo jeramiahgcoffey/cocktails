@@ -7,7 +7,7 @@ import {
   LOGIN_USER_SUCCESS,
   LOGIN_USER_ERROR,
   LOGOUT_USER,
-  TOGGLE_LOGIN_MODAL,
+  TOGGLE_MODAL,
   TOGGLE_DARK_MODE,
   SET_SELECTED_INDEX,
   POST_RECIPE_BEGIN,
@@ -144,10 +144,10 @@ const reducer = (state, action) => {
         user: null,
         token: null,
       }
-    case TOGGLE_LOGIN_MODAL:
+    case TOGGLE_MODAL:
       return {
         ...state,
-        loginModalOpen: !state.loginModalOpen,
+        modalOpen: !state.modalOpen,
       }
     default:
       throw new Error(`no such action: ${action.type}`)

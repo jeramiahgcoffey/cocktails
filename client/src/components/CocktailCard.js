@@ -10,7 +10,7 @@ const CocktailCard = ({ drink }) => {
           'https://i.etsystatic.com/23297885/r/il/b618b4/3760271726/il_794xN.3760271726_8hdj.jpg'
         }
         alt='cocktail'
-        sx={{ maxWidth: '100%', height: 250 }}
+        sx={{ objectFit: 'cover', height: 250 }}
       ></CardMedia>
       <div className='card__info'>
         <Typography variant='h5' sx={{ textTransform: 'capitalize' }}>

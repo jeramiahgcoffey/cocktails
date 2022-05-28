@@ -10,7 +10,7 @@ import {
   LOGIN_USER_SUCCESS,
   LOGIN_USER_ERROR,
   LOGOUT_USER,
-  TOGGLE_LOGIN_MODAL,
+  TOGGLE_MODAL,
   TOGGLE_DARK_MODE,
   SET_SELECTED_INDEX,
   POST_RECIPE_BEGIN,
@@ -19,7 +19,7 @@ import {
   INPUT_CHANGE,
   CLEAR_INPUT_VALUES,
   GET_DRINKS_BEGIN,
-  GET_DRINKS_SUCCESS,
+  GET_DRINKS_SUCCESS
 } from './actions'
 
 const token = localStorage.getItem('token')
@@ -34,7 +34,7 @@ const initalState = {
   alertType: '',
   alertText: '',
   isLoading: false,
-  loginModalOpen: false,
+  modalOpen: false,
   user: user ? JSON.parse(user) : null,
   token: token,
   drinks: [],
@@ -45,7 +45,7 @@ const initalState = {
   imageURL: '',
   tags: '',
   ingredients: '',
-  instructions: '',
+  instructions: ''
 }
 
 const AppContext = createContext()
@@ -55,7 +55,7 @@ const AppProvider = ({ children }) => {
 
   // axios
   const authFetch = axios.create({
-    baseURL: '/api/v1',
+    baseURL: '/api/v1'
   })
   // request
   authFetch.interceptors.request.use(
@@ -112,8 +112,8 @@ const AppProvider = ({ children }) => {
     }, 2000)
   }
 
-  const toggleLoginModal = () => {
-    dispatch({ type: TOGGLE_LOGIN_MODAL })
+  const toggleModal = () => {
+    dispatch({ type: TOGGLE_MODAL })
     clearAlert()
   }
 
@@ -124,12 +124,12 @@ const AppProvider = ({ children }) => {
       const { user, token } = response.data
       dispatch({ type: REGISTER_USER_SUCCESS, payload: { user, token } })
       addUserToLocalStorage({ user, token })
-      setTimeout(toggleLoginModal, 1500)
+      setTimeout(toggleModal, 1500)
     } catch (error) {
       // console.log(error)
       dispatch({
         type: REGISTER_USER_ERROR,
-        payload: { msg: error.response.data.msg },
+        payload: { msg: error.response.data.msg }
       })
     }
     clearAlert()
@@ -142,11 +142,11 @@ const AppProvider = ({ children }) => {
       const { user, token } = response.data
       dispatch({ type: LOGIN_USER_SUCCESS, payload: { user, token } })
       addUserToLocalStorage({ user, token })
-      setTimeout(toggleLoginModal, 1500)
+      setTimeout(toggleModal, 1500)
     } catch (error) {
       dispatch({
         type: LOGIN_USER_ERROR,
-        payload: { msg: error.response.data.msg },
+        payload: { msg: error.response.data.msg }
       })
     }
     clearAlert()
@@ -168,7 +168,7 @@ const AppProvider = ({ children }) => {
       // console.log(response)
       dispatch({
         type: GET_DRINKS_SUCCESS,
-        payload: { drinks: all, totalDrinks, numPages },
+        payload: { drinks: all, totalDrinks, numPages }
       })
     } catch (error) {
       console.log(error)
@@ -185,7 +185,7 @@ const AppProvider = ({ children }) => {
       // console.log(response.data)
       dispatch({
         type: GET_DRINKS_SUCCESS,
-        payload: { drinks, totalDrinks, numPages },
+        payload: { drinks, totalDrinks, numPages }
       })
     } catch (error) {
       console.log(error)
@@ -215,7 +215,7 @@ const AppProvider = ({ children }) => {
     } catch (error) {
       dispatch({
         type: POST_RECIPE_ERROR,
-        payload: { msg: error.response.data.msg },
+        payload: { msg: error.response.data.msg }
       })
     }
     clearAlert()
@@ -232,10 +232,10 @@ const AppProvider = ({ children }) => {
         logoutUser,
         getAllDrinks,
         getUserDrinks,
-        toggleLoginModal,
+        toggleModal,
         handleInputChange,
         clearInputValues,
-        postRecipe,
+        postRecipe
       }}
     >
       {children}

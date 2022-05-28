@@ -2,8 +2,9 @@ import { useAppContext } from '../../context/appContext'
 import { Box, Stack } from '@mui/material'
 import { Outlet } from 'react-router-dom'
 import Navbar from './Navbar'
-import LoginModal from '../ui/LoginModal'
+import TheModal from '../ui/TheModal'
 import Sidebar from './Sidebar'
+import Register from '../Register'
 
 const SharedLayout = () => {
   const { darkMode } = useAppContext()
@@ -11,7 +12,7 @@ const SharedLayout = () => {
   return (
     <>
       <Navbar />
-      <LoginModal />
+      <TheModal comp={<Register />} />
       <Stack
         direction='row'
         bgcolor={'background.default'}

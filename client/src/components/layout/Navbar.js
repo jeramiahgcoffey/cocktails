@@ -20,22 +20,20 @@ const Navbar = () => {
   const {
     logoutUser,
     user,
-    toggleLoginModal,
+    toggleModal,
     selectedIndex,
     setSelectedIndex,
     darkMode,
-    toggleDarkMode,
+    toggleDarkMode
   } = useAppContext()
 
   const pages = [
     { page: 'Explore', path: '/', index: 0 },
     { page: 'My Lists', path: '/user/lists', index: 1 },
     { page: 'My Drinks', path: '/user/drinks', index: 2 },
-    { page: 'Post a Recipe', path: '/user/post', index: 3 },
+    { page: 'Post a Recipe', path: '/user/post', index: 3 }
   ]
-  const settings = user
-    ? ['Profile', 'Account', 'Dashboard', 'Logout']
-    : ['Login']
+  const settings = user ? ['Profile', 'Dashboard', 'Logout'] : ['Login']
   const [anchorElNav, setAnchorElNav] = useState(null)
   const [anchorElUser, setAnchorElUser] = useState(null)
 
@@ -62,7 +60,7 @@ const Navbar = () => {
       navigate(path)
       setSelectedIndex(index)
     } else {
-      toggleLoginModal()
+      toggleModal()
     }
   }
 
@@ -73,7 +71,7 @@ const Navbar = () => {
         logoutUser()
         break
       case 'Login':
-        toggleLoginModal()
+        toggleModal()
         break
       default:
         break
@@ -105,7 +103,7 @@ const Navbar = () => {
                 fontWeight: 700,
                 letterSpacing: '.3rem',
                 color: 'inherit',
-                textDecoration: 'none',
+                textDecoration: 'none'
               }}
             >
               Cocktails
@@ -115,7 +113,7 @@ const Navbar = () => {
             sx={{
               flexGrow: 1,
               display: { xs: 'flex', md: 'none' },
-              alignItems: 'center',
+              alignItems: 'center'
             }}
           >
             <IconButton
@@ -133,17 +131,17 @@ const Navbar = () => {
               anchorEl={anchorElNav}
               anchorOrigin={{
                 vertical: 'bottom',
-                horizontal: 'left',
+                horizontal: 'left'
               }}
               keepMounted
               transformOrigin={{
                 vertical: 'top',
-                horizontal: 'left',
+                horizontal: 'left'
               }}
               open={Boolean(anchorElNav)}
               onClose={handleCloseNavMenu}
               sx={{
-                display: { xs: 'block', md: 'none' },
+                display: { xs: 'block', md: 'none' }
               }}
             >
               {pages.map((page, index) => (
@@ -179,7 +177,7 @@ const Navbar = () => {
               cursor: 'pointer',
               display: { xs: 'flex', md: 'none' },
               flexGrow: 1,
-              alignItems: 'center',
+              alignItems: 'center'
             }}
           >
             <LocalBarIcon sx={{ mr: 1 }} />
@@ -193,7 +191,7 @@ const Navbar = () => {
                 fontWeight: 700,
                 letterSpacing: '.3rem',
                 color: 'inherit',
-                textDecoration: 'none',
+                textDecoration: 'none'
               }}
             >
               Cocktails
@@ -236,12 +234,12 @@ const Navbar = () => {
               anchorEl={anchorElUser}
               anchorOrigin={{
                 vertical: 'top',
-                horizontal: 'right',
+                horizontal: 'right'
               }}
               keepMounted
               transformOrigin={{
                 vertical: 'top',
-                horizontal: 'right',
+                horizontal: 'right'
               }}
               open={Boolean(anchorElUser)}
               onClose={handleCloseUserMenu}

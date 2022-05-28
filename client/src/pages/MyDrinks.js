@@ -13,7 +13,7 @@ const MyDrinks = () => {
   return (
     <>
       <Box>
-        <Typography variant='h2'>My Drink Recipes</Typography>
+        <Typography variant='h2'>My Drinks</Typography>
         <Divider />
         <Search />
         <Divider sx={{ marginBottom: 2 }} />
